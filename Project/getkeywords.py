@@ -38,10 +38,6 @@ def callApi(q):
    #print(pretty(sundata))
    return sundata
 
-#def callSpotify(list):
-    #use keywords to get song titles, one for each keyword?
-    #ex.'Southern Gothic', 'queer Southern', 'Mandelo debut', 'debut Summer', 'crosses Appalachian', 'Appalachian street', 'academic intrigue', 'hungry ghost'
-
 
 def extract_keywords(sundata):
    import yake
