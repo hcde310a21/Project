@@ -37,32 +37,17 @@ def spotifyurlfetch(url, access_token, params=None):
 ### this will handle our home page
 #@app.route("/")
 def index(q):
-    #q = getkeywords.defineTerm()
-    #bookdata = getkeywords.callApi(q)
-    #keywords= getkeywords.extract_keywords(bookdata)
-    #keywords = getkeywords.keywordstrip(keywords)
-    #q = keywords[0]
-    #getkeywords.main_handler()
-    #print(keywords[0])
-    #q = 'southern%20gothic'
     if 'user_id' in session:
         # if logged in, get their playlists
-        #url = "https://api.spotify.com/v1/users/%s/playlists" % session['user_id']
-        #url = "https://api.spotify.com/v1/search?type=playlist&q=lee%20mandelo"
-         #track?q = track:"thriller" + OR + track: "highway+star" + AND + artist:"michael+jackson" + OR + artist: "deep+purple
-        #url = "https://api.spotify.com/v1/search?q=name:" +q + "&type=playlist,track"
         url = "https://api.spotify.com/v1/search?type=playlist&q=" + q
-        #url = "https://api.spotify.com/v1/users/%s/playlists?name=HCDE&public=True" % session['user_id']
         # in the future, should make this more robust so it checks
         # if the access_token is still valid and retrieves a new one
         # using refresh_token if not
         response = json.loads(spotifyurlfetch(url, session['access_token']))
         print(pretty(response))
-        #playlists = response["tracks"]['items']
         playlists = response['playlists']['items']
     else:
         playlists = None
-    #return render_template('oauth.html', user=session, playlists=playlists)
     return playlists
 
 
@@ -128,7 +113,7 @@ def login_handler():
             'scope'] = "user-library-modify playlist-modify-private playlist-modify-public playlist-read-collaborative playlist-read-private"
 
         url = "https://accounts.spotify.com/authorize?" + urllib.parse.urlencode(args)
-        print(redirect(url))
+        #print(redirect(url))
         return redirect(url)
 
 
@@ -163,11 +148,9 @@ def main_handler():
             else:
                 imageLinks = None
             if len(playlist):
-                #playlist = None
-                #print(playlist)
                 playlistname = playlist[0]['name']
                 playlist = playlist[0]['external_urls']['spotify']
-                print(playlistname)
+                #print(playlistname)
             else:
                 playlist = None
                 playlistname = None
