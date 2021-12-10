@@ -195,9 +195,3 @@ def main_handler():
             prompt="We need a book")
     else:
         return render_template('index.html',page_title="Book Form")
-
-if __name__ == "__main__":
-    # Used when running locally only.
-    # When deploying to Google AppEngine, a webserver process
-    # will serve your app.
-    app.run(host="localhost", port=8080, debug=True)
