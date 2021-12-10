@@ -1,0 +1,23 @@
+
+h1 {
+    text-align:center
+    }
+    p {
+        text-align:center
+    }
+    h2 {
+        text-align:center
+    }
+    h3 {
+        text-align:center
+    }
+    table {
+        text-align:center
+    }
+    .center {
+  margin-left: auto;
+  margin-right: auto;
+}
+    ul {
+        text-align:center
+    }

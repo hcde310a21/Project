@@ -1,0 +1,22 @@
+<html>
+  <head>
+  <title>Spotify OAuth Example</title>
+  </head>
+  <body>
+    {% if user %}
+      <p>You are logged in as {{ user.displayname|escape }}.</p>
+	  {% if playlists %}
+      <p>Your playlists are:</p>
+	  <ul>
+	  {% for playlist in playlists %}
+	  <li><a href="{{playlist.external_urls.spotify}}">{{playlist.name}}</a> </li>
+	  {% endfor %}
+  	  </ul>
+	  {% endif %}
+      <p><a href="/auth/logout">Log out</a></p>
+    {% else %}
+      <p>You are not yet logged into this site</p>
+      <p><a href="/auth/login">Log in to Spotify</a></p>
+    {% endif %}
+  </body>
+</html>
