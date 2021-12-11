@@ -1,7 +1,6 @@
 
 import urllib.parse, urllib.request, urllib.error,json, logging
 from flask import Flask, render_template, request
-import spotpp
 
 
 app = Flask(__name__)
