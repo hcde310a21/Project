@@ -1,4 +1,5 @@
 
+
 import urllib.request, urllib.error, urllib.parse, json, logging
 from flask import Flask, render_template, request, session, redirect, url_for, logging
 from flask_bootstrap import Bootstrap
@@ -38,13 +39,12 @@ def spotifyurlfetch(url, access_token, params=None):
 #@app.route("/")
 def index(q):
     if 'user_id' in session:
-        # if logged in, get their playlists
         url = "https://api.spotify.com/v1/search?type=playlist&q=" + q
         # in the future, should make this more robust so it checks
         # if the access_token is still valid and retrieves a new one
         # using refresh_token if not
         response = json.loads(spotifyurlfetch(url, session['access_token']))
-        print(pretty(response))
+        #print(pretty(response))
         playlists = response['playlists']['items']
     else:
         playlists = None
@@ -98,9 +98,6 @@ def login_handler():
         session['profile_url'] = profile["external_urls"]["spotify"]
         session['api_url'] = profile["href"]
         session['refresh_token'] = refresh_token
-        if profile.get('images') is not None:
-            session['img'] = profile["images"][0]["url"]
-        ## okay, all done, send them back to the App's home page
         return redirect(url_for('main_handler'))
     else:
         # not logged in yet-- send the user to Spotify to do that
@@ -113,7 +110,7 @@ def login_handler():
             'scope'] = "user-library-modify playlist-modify-private playlist-modify-public playlist-read-collaborative playlist-read-private"
 
         url = "https://accounts.spotify.com/authorize?" + urllib.parse.urlencode(args)
-        #print(redirect(url))
+        print(redirect(url))
         return redirect(url)
 
 
@@ -150,7 +147,7 @@ def main_handler():
             if len(playlist):
                 playlistname = playlist[0]['name']
                 playlist = playlist[0]['external_urls']['spotify']
-                #print(playlistname)
+                print(playlistname)
             else:
                 playlist = None
                 playlistname = None
@@ -178,9 +175,4 @@ def main_handler():
             prompt="We need a book")
     else:
         return render_template('index.html',page_title="Book Form")
-    
-if __name__ == "__main__":
-    # Used when running locally only.
-	# When deploying to Google AppEngine, a webserver process
-	# will serve your app.
-    app.run(host="localhost", port=8080, debug=True)
+
